@@ -65,6 +65,7 @@ GEM
     crass (1.0.6)
     erubi (1.10.0)
     ffi (1.14.2)
+    geocoder (1.6.5)
     geokit (1.13.1)
     geokit-rails (2.3.2)
       geokit (~> 1.5)
@@ -159,6 +160,8 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootsnap (>= 1.4.2)
   byebug
+  geocoder
+  geokit
   geokit-rails
   listen (~> 3.2)
   puma (~> 4.1)
