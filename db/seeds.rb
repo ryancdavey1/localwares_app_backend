@@ -9,8 +9,6 @@
 john = User.create(name: "John", email: "john.test@aol.com", password: "password");
 jane = User.create(name: "Jane", email: "jane.test@aol.com", password: "password");
 
-#Location.create(address1: "100 Spear St", city: "San Francisco", state: "CA", postal_code: "94105")
-
 # Create Category defaults
 coffee_tea = Category.create(name: "Coffee/Tea")
 restaurant_eatery = Category.create(name: "Restaurant/Eatery")
