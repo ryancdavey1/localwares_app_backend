@@ -5,12 +5,17 @@ class Api::V1::BusinessesController < ApplicationController
   def index
     @businesses = Business.all
 
-    render json: @businesses
+    #render json: @businesses
+
+    businesses_json = BusinessSerializer.new(@businesses).serializable_hash.to_json
+    render json: businesses_json
   end
 
   # GET /businesses/1
   def show
-    render json: @business
+    #render json: @business
+    business_json = BusinessSerializer.new(@business).serializable_hash.to_json
+    render json: business_json
   end
 
   # POST /businesses
