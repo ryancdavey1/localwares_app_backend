@@ -20,12 +20,15 @@ class Api::V1::BusinessesController < ApplicationController
 
   # POST /businesses
   def create
-    @business = Business.new(business_params)
+    @business = current_user.businesses.build(business_params)
 
     if @business.save
-      render json: @business, status: :created, location: @business
+      render json:  BusinessSerializer.new(@business), status: :created
     else
-      render json: @business.errors, status: :unprocessable_entity
+      error_resp = {
+        error: @business.errors.full_messages.to_sentence
+      }
+      render json: error_resp, status: :unprocessable_entity
     end
   end
 
