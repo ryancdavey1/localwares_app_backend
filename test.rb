@@ -11,8 +11,8 @@ require 'geocoder'
 loc1 = Geocoder.coordinates("100 Spear St, San Francisco, CA 94105")
 loc2 = Geocoder.coordinates("Golden Gate Bridge, San Francisco, CA")
 
-puts loc1
-puts loc2
+puts loc1.lat
+puts loc2.lat
 
 res = Geocoder::Calculations.distance_between(loc1, loc2)
 puts res

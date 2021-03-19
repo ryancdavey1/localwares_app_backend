@@ -1,6 +1,6 @@
 class BusinessSerializer
   include JSONAPI::Serializer
-  attributes :name, :description, :open_hours, :email, :phone_number, :delivery, :user_id, :category_id, :website, :address1, :city, :state, :postal_code, :lat, :lng
+  attributes :name, :description, :open_hours, :email, :phone_number, :delivery, :user_id, :category_id, :website, :address1, :city, :state, :postal_code, :address, :lat, :lng
 
   attribute :items do |business|
     business.items.map do |item|

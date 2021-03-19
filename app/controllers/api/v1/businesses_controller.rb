@@ -1,3 +1,5 @@
+require 'geocoder'
+
 class Api::V1::BusinessesController < ApplicationController
   before_action :set_business, only: [:show, :update, :destroy]
 
@@ -21,7 +23,10 @@ class Api::V1::BusinessesController < ApplicationController
   # POST /businesses
   def create
     @business = current_user.businesses.build(business_params)
-
+    #byebug
+    # @business.lat = Geocoder.coordinates(@business.address)[0]
+    # @business.lng = Geocoder.coordinates(@business.address)[1]
+    
     if @business.save
       render json:  BusinessSerializer.new(@business), status: :created
     else
@@ -35,15 +40,25 @@ class Api::V1::BusinessesController < ApplicationController
   # PATCH/PUT /businesses/1
   def update
     if @business.update(business_params)
-      render json: @business
+      render json:  BusinessSerializer.new(@business), status: :ok
     else
-      render json: @business.errors, status: :unprocessable_entity
+      error_resp = {
+        error: @business.errors.full_messages.to_sentence
+      }
+      render json: error_resp, status: :unprocessable_entity
     end
   end
 
   # DELETE /businesses/1
   def destroy
-    @business.destroy
+    if @business.destroy
+      render json:  { data: "Business successfully destroyed" }, status: :ok
+    else
+      error_resp = {
+        error: "Business not found and not destroyed"
+      }
+      render json: error_resp, status: :unprocessable_entity
+    end
   end
 
   private
@@ -54,6 +69,6 @@ class Api::V1::BusinessesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def business_params
-      params.require(:business).permit(:name, :description, :open_hours, :email, :phone_number, :favorite, :delivery, :user_id, :category_id, :website, :address1, :city, :state, :postal_code, :lat, :lng)
+      params.require(:business).permit(:name, :description, :open_hours, :email, :phone_number, :favorite, :delivery, :user_id, :category_id, :website, :address1, :city, :state, :postal_code, :address, :lat, :lng)
     end
 end
